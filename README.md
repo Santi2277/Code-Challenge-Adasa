@@ -18,29 +18,29 @@ concrete technology versions, steps to execute the project, and many more.
 
 ### Tools
 
-These are the highlighed tools I used for this project:
+These are the highlighed tools I used for this project:  
 1. Eclipse IDE for Enterprise Java and Web Developers  
-https://www.eclipse.org/downloads/packages/
+https://www.eclipse.org/downloads/packages/  
 2. Visual Studio Code  
-https://code.visualstudio.com/
+https://code.visualstudio.com/  
 3. Atom  
-https://atom.io/
+https://atom.io/  
 4. Git and Git Bash  
-https://git-scm.com/
-5. Operating System: Microsoft Windows 10 Home
+https://git-scm.com/  
+5. Operating System: Microsoft Windows 10 Home  
 
 ### Backend and database
 
-These are the highlighted technologies used for this project (and its version):
+These are the highlighted technologies used for this project (and its version):  
 1. Java 8 (1.8.0_261)  
-https://www.oracle.com/es/java/technologies/javase/javase8-archive-downloads.html
-2. Maven 3.6.3 (was embedded in Eclipse)
+https://www.oracle.com/es/java/technologies/javase/javase8-archive-downloads.html  
+2. Maven 3.6.3 (was embedded in Eclipse)  
 3. Spring Boot 2.6.4  
-https://spring.io/projects/spring-boot
+https://spring.io/projects/spring-boot  
 4. MySQL Community Server 8.0.19  
-https://www.mysql.com/
+https://www.mysql.com/  
 5. Lombok  
-https://projectlombok.org/
+https://projectlombok.org/  
 
 ### Frontend
 
@@ -57,21 +57,21 @@ the frontend.
 
 #### Git
 
-1. Download git if you don't have it
-2. Clone the project
+1. Download git if you don't have it  
+2. Clone the project  
 
 #### DB
 
-1. Run the database script (ie: from MySQL Workbench as root user)
+1. Run the database script (ie: from MySQL Workbench as root user)  
   The script is in the path back/codechallenge/scripts
 
 #### Import project and backend setup
 
-1. Install Java (version provided at versions section)
+1. Install Java (version provided at versions section)  
   If other version is installed before, we can change versions with
   environment variables
-2. Install Eclipse, create/open a workspace
-3. Import project in Eclipse, Maven existing project, select backend folder
+2. Install Eclipse, create/open a workspace  
+3. Import project in Eclipse, Maven existing project, select backend folder  
   I have deactivated the build automatically option, and git connection (team)
 
 ### Project Starter
@@ -81,11 +81,11 @@ https://start.spring.io/
 
 Selecting: Maven Project, Language Java, Spring Boot 2.6.4, Packaging Jar,
 Java 8.  
-As dependencies:
-1. Lombok
-2. Spring Data JPA
-3. MySQL Driver
-4. Rest Repositories
+As dependencies:  
+1. Lombok  
+2. Spring Data JPA  
+3. MySQL Driver  
+4. Rest Repositories  
 
 Then set the database connection in:
 src/main/resources/application.properties
@@ -116,9 +116,9 @@ http://localhost:8080/api/meteoVariables
 
 ### Technical Information
 
-The application contains two main layers:
-1. Entity: maps the database table into a Java class
-2. DAO (Data Access Object): provides access to that entity
+The application contains two main layers:  
+1. Entity: maps the database table into a Java class  
+2. DAO (Data Access Object): provides access to that entity  
 
 With Spring Boot through Spring Data JPA the entity is recognized and then with
 Spring Data Rest the DAO detects it and can expose the entity via an endpoint
@@ -130,13 +130,13 @@ It also uses Lombok to reduce code such as getters and setters
 
 #### Packages view
 
-dao
-1. MeteoStationRepository.java
-2. MeteoVariableRepository.java
+dao  
+1. MeteoStationRepository.java  
+2. MeteoVariableRepository.java  
 
-entity
-1. MeteoStation.java
-2. MeteoVariable.java
+entity  
+1. MeteoStation.java  
+2. MeteoVariable.java  
 
 ## Frontend Information
 
