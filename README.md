@@ -19,27 +19,27 @@ concrete technology versions, steps to execute the project, and many more.
 ### Tools
 
 These are the highlighed tools I used for this project:
-* Eclipse IDE for Enterprise Java and Web Developers  
+ * Eclipse IDE for Enterprise Java and Web Developers  
 https://www.eclipse.org/downloads/packages/
-* Visual Studio Code  
+ * Visual Studio Code  
 https://code.visualstudio.com/
-* Atom  
+ * Atom  
 https://atom.io/
-* Git and Git Bash  
+ * Git and Git Bash  
 https://git-scm.com/
-* Operating System: Microsoft Windows 10 Home
+ * Operating System: Microsoft Windows 10 Home
 
 ### Backend and database
 
 These are the highlighted technologies used for this project (and its version):
-* Java 8 (1.8.0_261)  
+ * Java 8 (1.8.0_261)  
 https://www.oracle.com/es/java/technologies/javase/javase8-archive-downloads.html
-* Maven 3.6.3 (was embedded in Eclipse)
-* Spring Boot 2.6.4  
+ * Maven 3.6.3 (was embedded in Eclipse)
+ * Spring Boot 2.6.4  
 https://spring.io/projects/spring-boot
-* MySQL Community Server 8.0.19  
+ * MySQL Community Server 8.0.19  
 https://www.mysql.com/
-* Lombok  
+ * Lombok  
 https://projectlombok.org/
 
 ### Frontend
@@ -82,10 +82,10 @@ https://start.spring.io/
 Selecting: Maven Project, Language Java, Spring Boot 2.6.4, Packaging Jar,
 Java 8.  
 As dependencies:
-* Lombok
-* Spring Data JPA
-* MySQL Driver
-* Rest Repositories
+ * Lombok
+ * Spring Data JPA
+ * MySQL Driver
+ * Rest Repositories
 
 Then set the database connection in:
 src/main/resources/application.properties
@@ -117,8 +117,8 @@ http://localhost:8080/api/meteoVariables
 ### Technical Information
 
 The application contains two main layers:
-* Entity: maps the database table into a Java class
-* DAO (Data Access Object): provides access to that entity
+ * Entity: maps the database table into a Java class
+ * DAO (Data Access Object): provides access to that entity
 
 With Spring Boot through Spring Data JPA the entity is recognized and then with
 Spring Data Rest the DAO detects it and can expose the entity via an endpoint
@@ -131,12 +131,12 @@ It also uses Lombok to reduce code such as getters and setters
 #### Packages view
 
 dao
-* MeteoStationRepository.java
-* MeteoVariableRepository.java
+ * MeteoStationRepository.java
+ * MeteoVariableRepository.java
 
 entity
-* MeteoStation.java
-* MeteoVariable.java
+ * MeteoStation.java
+ * MeteoVariable.java
 
 ## Frontend Information
 
