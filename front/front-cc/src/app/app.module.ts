@@ -9,6 +9,8 @@ import { MainContentComponent } from './components/main-content/main-content.com
 import { MapComponent } from './components/map/map.component';
 import { TableComponent } from './components/table/table.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator'; 
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
