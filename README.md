@@ -199,6 +199,9 @@ http://localhost:4200/
 
 #### Header
 
+It is a simple header containing buttons to change between the pages / sections 
+of the application that are shown below it.
+
 #### Main
 
 #### Table
@@ -214,6 +217,12 @@ http://localhost:4200/
 #### General features
 
 #### Header
+
+The header is made with css and material angular button toggle.
+
+It uses the routes of the application defined in app-routing.module.ts to 
+switch the route component that is being shown defined in app.component.html 
+through the router-outlet.
 
 #### Main
 
