@@ -1,47 +1,47 @@
 <p>Table with meteo & variables</p>
 
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
   
       <!-- cod_station Column -->
       <ng-container matColumnDef="cod_station">
-        <th mat-header-cell *matHeaderCellDef> cod_station </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cod_station"> cod_station </th>
         <td mat-cell *matCellDef="let element"> {{element.cod_station}} </td>
       </ng-container>
   
       <!-- ts Column -->
       <ng-container matColumnDef="ts">
-        <th mat-header-cell *matHeaderCellDef> ts </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by ts"> ts </th>
         <td mat-cell *matCellDef="let element"> {{element.ts}} </td>
       </ng-container>
   
       <!-- temp Column -->
       <ng-container matColumnDef="temp">
-        <th mat-header-cell *matHeaderCellDef> temp </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by temp"> temp </th>
         <td mat-cell *matCellDef="let element"> {{element.temp}} </td>
       </ng-container>
   
       <!-- wind Column -->
       <ng-container matColumnDef="wind">
-        <th mat-header-cell *matHeaderCellDef> wind </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by wind"> wind </th>
         <td mat-cell *matCellDef="let element"> {{element.wind}} </td>
       </ng-container>
 
       <!-- prec Column -->
       <ng-container matColumnDef="prec">
-        <th mat-header-cell *matHeaderCellDef> prec </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by prec"> prec </th>
         <td mat-cell *matCellDef="let element"> {{element.prec}} </td>
       </ng-container>
 
       <!-- pres Column -->
       <ng-container matColumnDef="pres">
-        <th mat-header-cell *matHeaderCellDef> pres </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by pres"> pres </th>
         <td mat-cell *matCellDef="let element"> {{element.pres}} </td>
       </ng-container>
 
       <!-- hum Column -->
       <ng-container matColumnDef="hum">
-        <th mat-header-cell *matHeaderCellDef> hum </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by hum"> hum </th>
         <td mat-cell *matCellDef="let element"> {{element.hum}} </td>
       </ng-container>
   

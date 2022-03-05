@@ -10,7 +10,8 @@ import { MapComponent } from './components/map/map.component';
 import { TableComponent } from './components/table/table.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator'; 
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort'; 
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     NoopAnimationsModule,
     MatButtonToggleModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
