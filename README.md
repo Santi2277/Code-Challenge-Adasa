@@ -44,7 +44,17 @@ https://projectlombok.org/
 
 ### Frontend
 
-TO FILL
+These are the highlighted technologies used for this project (and its version):  
+1. Node 16.13.2  
+https://nodejs.org/en/  
+2. npm 8.1.2  
+https://www.npmjs.com/  
+3. Angular CLI 13.2.5  
+https://angular.io/  
+4. Material Angular  
+https://material.angular.io/components/categories  
+5. amCharts 4  
+https://www.amcharts.com/docs/v4/  
 
 ## Project structure
 
@@ -140,4 +150,58 @@ entity
 
 ## Frontend Information
 
-TO FILL
+### Installation
+
+I have used nvm to manage node versions.  
+https://github.com/nvm-sh/nvm  
+To install node and npm (with nvm installed):
+```bash
+nvm install 16.13.2
+nvm use 16.13.2
+```
+Install angular CLI
+```bash
+npm install -g @angular/cli@13.2.5
+```
+
+### Project Starter
+
+The project starter has been generated this way (through Angular CLI):  
+1. Generate project with `ng new front-cc`  
+  Options: with angular routing and CSS  
+  We can check angular project version in generated package.json  
+  ("@angular/core": "~13.2.0")  
+2. Change to project folder `cd front-cc`  
+3. Add Material Angular  
+  ```bash
+  ng add @angular/material
+  ```
+  (added version 12.2.13)  
+4. Install amCharts 4  
+  `npm install @amcharts/amcharts4`  
+  * Adapt package.json `"build": "ng build --prod --build-optimizer=false",`  
+  * `npm start` (http://localhost:4200/) (check everything is ok and close)  
+  * Avoid Typescript compiler errors, add in file tsconfig.json compilerOptions  
+  ```bash
+  "strictNullChecks": false,
+  "noImplicitAny": false,
+  ```
+
+### Execute
+
+Run `npm start` from the source frontend folder (front-cc)  
+Connect through a browser once is up  
+http://localhost:4200/
+
+### Functional Information
+
+#### General features
+
+#### Header
+
+### Technical Information
+
+#### General features
+
+#### Header
+
