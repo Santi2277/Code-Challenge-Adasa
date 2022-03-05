@@ -14,6 +14,7 @@ export class TableComponent implements OnInit {
 
   displayedColumns: string[] = ['cod_station', 'ts', 'temp', 'wind', 'prec', 'pres', 'hum'];
   dataSource = new MatTableDataSource<Meteo>(ELEMENT_DATA);
+  meteoStationsData = ["all", "1", "2", "3", "4"];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -21,11 +22,24 @@ export class TableComponent implements OnInit {
   constructor(private _liveAnnouncer: LiveAnnouncer) { }
 
   ngOnInit(): void {
+
+    this.dataSource.filterPredicate = function (record,filter) {
+      if("all" == filter){
+        return true;
+      }else {
+        return record.cod_station == parseInt(filter);
+      }
+    }
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(selection: String) {
+    const filterValue = selection;
+    this.dataSource.filter = filterValue.trim();
   }
 
   /** Announce the change in sort state for assistive technology. */

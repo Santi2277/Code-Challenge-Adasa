@@ -1,5 +1,14 @@
 <p>Table with meteo & variables</p>
 
+<mat-form-field appearance="fill">
+    <mat-label>Meteo Station</mat-label>
+    <mat-select (selectionChange)="applyFilter($event.value)">
+      <mat-option *ngFor="let meteoStation of meteoStationsData" [value]="meteoStation">
+        {{meteoStation}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
   
