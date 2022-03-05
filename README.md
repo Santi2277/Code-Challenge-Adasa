@@ -199,9 +199,28 @@ http://localhost:4200/
 
 #### Header
 
+#### Main
+
+#### Table
+
+#### Table Graphic Detail
+
+#### Graphic
+
+#### Map
+
 ### Technical Information
 
 #### General features
 
 #### Header
 
+#### Main
+
+#### Table
+
+#### Table Graphic Detail
+
+#### Graphic
+
+#### Map
