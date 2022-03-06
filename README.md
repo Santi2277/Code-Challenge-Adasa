@@ -206,8 +206,6 @@ of the application that are shown below it.
 
 #### Table
 
-#### Table Graphic Detail
-
 #### Graphic
 
 #### Map
@@ -227,8 +225,6 @@ through the router-outlet.
 #### Main
 
 #### Table
-
-#### Table Graphic Detail
 
 #### Graphic
 

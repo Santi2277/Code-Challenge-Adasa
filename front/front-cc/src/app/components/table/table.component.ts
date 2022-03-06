@@ -30,7 +30,6 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
 
   
-    // it is being created after pagination now
     this.codeChallengeService.getMeteos().subscribe(
       data => {
         this.meteosFromService = data;
