@@ -5,6 +5,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import { EmpFilter } from 'src/app/shared/emp-filter';
+import { CodeChallengeService } from 'src/app/services/code-challenge.service';
 
 @Component({
   selector: 'app-table',
@@ -14,6 +15,7 @@ import { EmpFilter } from 'src/app/shared/emp-filter';
 export class TableComponent implements OnInit {
 
   displayedColumns: string[] = ['cod_station', 'ts', 'temp', 'wind', 'prec', 'pres', 'hum'];
+  meteosFromService: Meteo[];
   dataSource = new MatTableDataSource<Meteo>(ELEMENT_DATA);
   meteoStationsData = ["All", "1", "2", "3", "4"];
   empFilters: EmpFilter[]=[];
@@ -23,9 +25,19 @@ export class TableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private codeChallengeService: CodeChallengeService) { }
 
   ngOnInit(): void {
+
+  
+    // it is being created after pagination now
+    this.codeChallengeService.getMeteos().subscribe(
+      data => {
+        this.meteosFromService = data;
+        this.dataSource.data = this.meteosFromService;
+      }
+    );
+    
 
     this.empFilters.push({name:'cod_station',options:this.meteoStationsData,defaultValue:"all"});
 
