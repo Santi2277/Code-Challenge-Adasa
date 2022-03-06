@@ -6,6 +6,8 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
+import { CodeChallengeService } from 'src/app/services/code-challenge.service';
+
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -14,8 +16,12 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 export class ChartComponent {
   private chart: am4charts.XYChart;
+  private jsonTempTs: any;
 
-  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone) {}
+  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone, private codeChallengeService: CodeChallengeService) {}
+
+  
+
 
   // Run the function only in the browser
   browserOnly(f: () => void) {
@@ -29,6 +35,25 @@ export class ChartComponent {
   ngAfterViewInit() {
     // Chart code goes in here
     this.browserOnly(() => {
+
+      // ---- code mine
+      // mine
+      this.codeChallengeService.getMeteos().subscribe(
+        data => {
+          this.jsonTempTs = data;
+          for (const element of this.jsonTempTs) {
+            delete element['cod_station'];
+            delete element['hum'];
+            delete element['prec'];
+            delete element['wind'];
+            delete element['pres'];
+          }
+        }
+      );
+
+      // -----
+
+
       am4core.useTheme(am4themes_animated);
 
       let chart = am4core.create("chartdiv", am4charts.XYChart);
@@ -43,6 +68,7 @@ export class ChartComponent {
       }
 
       chart.data = data;
+      //chart.data = this.jsonTempTs;
 
       let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
       dateAxis.renderer.grid.template.location = 0;
