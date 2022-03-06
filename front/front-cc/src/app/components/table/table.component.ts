@@ -62,13 +62,7 @@ export class TableComponent implements OnInit {
           let inputDateFrom = new Date(""+value);
 
           // transform date in format 2021-03-25 15:17:47
-          let recordDate;
-          if (record.ts.split(" ")){
-            recordDate = record.ts.split(" ")[0];
-          }
-          // transform date in format 2021-03-25
-          let recordDateValues = recordDate.split("-")
-          let cellDate = new Date(recordDateValues[2], recordDateValues[1] - 1, recordDateValues[0])
+          let cellDate = new Date(record.ts);
 
           isMatch = (cellDate > inputDateFrom); 
           if(!isMatch) return false;
@@ -80,13 +74,7 @@ export class TableComponent implements OnInit {
           let inputDateTo = new Date(""+value);
 
           // transform date in format 2021-03-25 15:17:47
-          let recordDate;
-          if (record.ts.split(" ")){
-            recordDate = record.ts.split(" ")[0];
-          }
-          // transform date in format 2021-03-25
-          let recordDateValues = recordDate.split("-")
-          let cellDate = new Date(recordDateValues[2], recordDateValues[1] - 1, recordDateValues[0])
+          let cellDate = new Date(record.ts)
 
           isMatch = (cellDate > inputDateTo); 
           if(!isMatch) return false;

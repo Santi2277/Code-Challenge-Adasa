@@ -37,58 +37,85 @@ export class ChartComponent {
     this.browserOnly(() => {
 
       // ---- code mine
-      // mine
       this.codeChallengeService.getMeteos().subscribe(
         data => {
+          // get meteos data
           this.jsonTempTs = data;
+          // loop data to convert to data to pass to the chart
+          // we will get the temperature, date and cod_station only
           for (const element of this.jsonTempTs) {
-            delete element['cod_station'];
+            
             delete element['hum'];
             delete element['prec'];
             delete element['wind'];
             delete element['pres'];
+
+            // value (temp)
+            // convert to number
+            element['temp'] = parseFloat(element['temp']);
+            Object.defineProperty(element, 'value',
+              Object.getOwnPropertyDescriptor(element, 'temp'));
+            delete element['temp'];
+
+            // name (cod_station)
+            Object.defineProperty(element, 'name',
+              Object.getOwnPropertyDescriptor(element, 'cod_station'));
+            delete element['cod_station'];
+
+            // convert element['ts'] into a Date            
+            let cellDate = new Date(element['ts'])
+            element['ts'] = cellDate;
+
+            // date (ts)
+            Object.defineProperty(element, 'date',
+              Object.getOwnPropertyDescriptor(element, 'ts'));
+            delete element['ts'];
+
           }
+
+          am4core.useTheme(am4themes_animated);
+
+          let chart = am4core.create("chartdiv", am4charts.XYChart);
+    
+          chart.paddingRight = 20;
+    
+          let data2 = [];
+          let visits = 10;
+          for (let i = 1; i < 366; i++) {
+            visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+            data2.push({ date: new Date(2018, 0, i), name: "name" + i, value: visits });
+          }
+    
+          //chart.data = data2;
+          chart.data = this.jsonTempTs;
+    
+          let date2Axis = chart.xAxes.push(new am4charts.DateAxis());
+          date2Axis.renderer.grid.template.location = 0;
+    
+          let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+          valueAxis.tooltip.disabled = true;
+          valueAxis.renderer.minWidth = 35;
+    
+          let series = chart.series.push(new am4charts.LineSeries());
+          series.dataFields.dateX = "date";
+          series.dataFields.valueY = "value";
+          series.tooltipText = "{valueY.value}";
+    
+          chart.cursor = new am4charts.XYCursor();
+    
+          let scrollbarX = new am4charts.XYChartScrollbar();
+          scrollbarX.series.push(series);
+          chart.scrollbarX = scrollbarX;
+    
+          this.chart = chart;
+
         }
       );
 
-      // -----
+      
 
 
-      am4core.useTheme(am4themes_animated);
-
-      let chart = am4core.create("chartdiv", am4charts.XYChart);
-
-      chart.paddingRight = 20;
-
-      let data = [];
-      let visits = 10;
-      for (let i = 1; i < 366; i++) {
-        visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
-        data.push({ date: new Date(2018, 0, i), name: "name" + i, value: visits });
-      }
-
-      chart.data = data;
-      //chart.data = this.jsonTempTs;
-
-      let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-      dateAxis.renderer.grid.template.location = 0;
-
-      let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-      valueAxis.tooltip.disabled = true;
-      valueAxis.renderer.minWidth = 35;
-
-      let series = chart.series.push(new am4charts.LineSeries());
-      series.dataFields.dateX = "date";
-      series.dataFields.valueY = "value";
-      series.tooltipText = "{valueY.value}";
-
-      chart.cursor = new am4charts.XYCursor();
-
-      let scrollbarX = new am4charts.XYChartScrollbar();
-      scrollbarX.series.push(series);
-      chart.scrollbarX = scrollbarX;
-
-      this.chart = chart;
+      
     });
   }
 
