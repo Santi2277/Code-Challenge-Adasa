@@ -6,6 +6,7 @@ import {MatSort, Sort} from '@angular/material/sort';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import { EmpFilter } from 'src/app/shared/emp-filter';
 import { CodeChallengeService } from 'src/app/services/code-challenge.service';
+import { MeteoVariable } from 'src/app/model/meteo-variable.model';
 
 @Component({
   selector: 'app-table',
@@ -16,6 +17,8 @@ export class TableComponent implements OnInit {
 
   displayedColumns: string[] = ['cod_station', 'ts', 'temp', 'wind', 'prec', 'pres', 'hum'];
   meteosFromService: Meteo[];
+  meteoVarsFromService: MeteoVariable[];
+  meteoVars: String = "";
   dataSource = new MatTableDataSource<Meteo>();
   meteoStationsData = ["All", "1", "2", "3", "4"];
   empFilters: EmpFilter[]=[];
@@ -34,6 +37,20 @@ export class TableComponent implements OnInit {
       data => {
         this.meteosFromService = data;
         this.dataSource.data = this.meteosFromService;
+      }
+    );
+
+    this.codeChallengeService.getMeteoVariablesBack().subscribe(
+      data => {
+        
+        this.meteoVarsFromService = data._embedded.meteoVariables;
+
+        for (const element of this.meteoVarsFromService) {
+          this.meteoVars = this.meteoVars+"Name: "+element['name'];
+          this.meteoVars = this.meteoVars+" Unit: "+element['unit']+". ";
+        }
+        
+        
       }
     );
     

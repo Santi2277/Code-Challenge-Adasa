@@ -20,13 +20,35 @@ export class CodeChallengeService {
         return this.http.get<Meteo[]>(this.meteoUrl);
     }
     
-    getMeteoStationsBack(): Observable<MeteoStation[]> {
-        return this.http.get<MeteoStation[]>(this.meteoStationsBackUrl);
+    getMeteoStationsBack(): Observable<GetResponseStations> {
+        return this.http.get<GetResponseStations>(this.meteoStationsBackUrl);
     }
 
-    getMeteoVariablesBack(): Observable<MeteoVariable[]> {
-        return this.http.get<MeteoVariable[]>(this.meteoVariablesBackUrl);
+    getMeteoVariablesBack(): Observable<GetResponseVariables> {
+        return this.http.get<GetResponseVariables>(this.meteoVariablesBackUrl);
     }
 
 }
 
+interface GetResponseVariables {
+    _embedded: {
+      meteoVariables: MeteoVariable[];
+    },
+    page: {
+      size: number,
+      totalElements: number,
+      totalPages: number,
+      number: number
+    }
+}
+interface GetResponseStations {
+    _embedded: {
+      meteoStations: MeteoStation[];
+    },
+    page: {
+      size: number,
+      totalElements: number,
+      totalPages: number,
+      number: number
+    }
+}
