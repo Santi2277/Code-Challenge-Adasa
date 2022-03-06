@@ -195,8 +195,6 @@ http://localhost:4200/
 
 ### Functional Information
 
-#### General features
-
 #### Header
 
 It is a simple header containing buttons to change between the pages / sections 
@@ -204,15 +202,36 @@ of the application that are shown below it.
 
 #### Main
 
+Shows a welcome message.
+
 #### Table
+
+Shows a table displaying the data from meteos obtained through the REST service:  
+https://demo3679421.mockable.io/meteo
+
+We can filter by meteo station code, by date range (has some bugs), it 
+has pagination and we can order by columns.
+
+There is a legend of variable units obtained from the backend.
 
 #### Graphic
 
+It shows a graphic with temperatures of the stations over the time.
+
+The data is from the REST service also.
+
 #### Map
 
-### Technical Information
+Not developed. The idea was to get meteo stations data from the backend, have 
+a selector to choose one of them, then display it on a map (through longitude
+and latitude values).
 
-#### General features
+#### Screenshots
+
+There is a screenshots folder showing the screens of the application (in the 
+root folder).
+
+### Technical Information
 
 #### Header
 
@@ -224,8 +243,24 @@ through the router-outlet.
 
 #### Main
 
+Basic html.
+
 #### Table
+
+The table is made with Material Angular Table.  
+https://material.angular.io/components/table/overview
+
+We get the data from the service (code-challenge.service.ts).
 
 #### Graphic
 
+It uses amCharts 4  
+https://www.amcharts.com/docs/v4/
+
 #### Map
+
+Not developed.
+
+#### Service
+
+It uses HttpClient from Angular to do the GET call. Then it maps the response.

@@ -32,7 +32,7 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
 
-  
+    // get meteo data from REST service
     this.codeChallengeService.getMeteos().subscribe(
       data => {
         this.meteosFromService = data;
@@ -40,6 +40,7 @@ export class TableComponent implements OnInit {
       }
     );
 
+    // get variables data from backend
     this.codeChallengeService.getMeteoVariablesBack().subscribe(
       data => {
         
@@ -55,17 +56,16 @@ export class TableComponent implements OnInit {
     );
     
 
+    // filters for columns
     this.empFilters.push({name:'cod_station',options:this.meteoStationsData,defaultValue:"all"});
 
+    // filterPredicate for datasource (meteos)
     this.dataSource.filterPredicate = function (record,filter) {
-      //if("all" == filter){
-        //return true;
-      //}else {
-        //return record.cod_station == parseInt(filter);
-      //}
+      
       var map = new Map(JSON.parse(filter));
       let isMatch = false;
 
+      // check the key to detect which column to filter
       for(let [key,value] of map){
         // case cod_station
         if(key == "cod_station"){
@@ -106,20 +106,24 @@ export class TableComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    // paginator help
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
+  // manage filters for cod_station
   applyFilter(selection: string) {
-    //const filterValue = selection;
-    //this.dataSource.filter = filterValue.trim();
+    // apply the filter to cod_station column
     this.applyEmpFilter("cod_station", selection);
   }
 
+  // manage filters for ts
   dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
     console.log(dateRangeStart.value);
     console.log(dateRangeEnd.value);
+    // apply the filter dateFrom
     this.applyEmpFilter("dateFrom", dateRangeStart.value);
+    // apply the filter dateTo
     this.applyEmpFilter("dateTo", dateRangeStart.value);
   }
 

@@ -37,6 +37,7 @@ export class ChartComponent {
     this.browserOnly(() => {
 
       // ---- code mine
+      // call the service to get meteos
       this.codeChallengeService.getMeteos().subscribe(
         data => {
           // get meteos data
@@ -75,18 +76,12 @@ export class ChartComponent {
 
           am4core.useTheme(am4themes_animated);
 
+          // create the chart
           let chart = am4core.create("chartdiv", am4charts.XYChart);
     
           chart.paddingRight = 20;
     
-          let data2 = [];
-          let visits = 10;
-          for (let i = 1; i < 366; i++) {
-            visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
-            data2.push({ date: new Date(2018, 0, i), name: "name" + i, value: visits });
-          }
-    
-          //chart.data = data2;
+          // assign data values to chart
           chart.data = this.jsonTempTs;
     
           let date2Axis = chart.xAxes.push(new am4charts.DateAxis());
@@ -97,6 +92,7 @@ export class ChartComponent {
           valueAxis.renderer.minWidth = 35;
     
           let series = chart.series.push(new am4charts.LineSeries());
+          // assign values to axis
           series.dataFields.dateX = "date";
           series.dataFields.valueY = "value";
           series.tooltipText = "{valueY.value}";

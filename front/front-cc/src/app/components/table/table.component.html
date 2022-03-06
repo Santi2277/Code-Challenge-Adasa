@@ -1,5 +1,6 @@
 <p>Table with meteo & variables</p>
 
+<!-- Meteo Station Selector -->
 <mat-form-field class="input-class" appearance="fill">
     <mat-label>Meteo Station</mat-label>
     <mat-select (selectionChange)="applyFilter($event.value)">
@@ -9,6 +10,7 @@
     </mat-select>
 </mat-form-field>
 
+<!-- Date Range Picker -->
 <mat-form-field appearance="fill">
     <mat-label>Date Range</mat-label>
     <mat-date-range-input [rangePicker]="dateRangePicker">
@@ -26,6 +28,7 @@
     <mat-date-range-picker #dateRangePicker></mat-date-range-picker>
   </mat-form-field>
 
+<!-- Table with meteos -->
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
   
@@ -80,6 +83,7 @@
                    aria-label="Select page of meteo and variables">
     </mat-paginator>
   </div>
+  <!-- Meteo variables legend -->
   <div class="div-legend">
     <p><strong>Meteo Variables Legend:</strong></p>
     <p class="paragraph-02">{{meteoVars}}</p>
