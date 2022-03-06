@@ -1,12 +1,29 @@
 <p>Table with meteo & variables</p>
 
-<mat-form-field appearance="fill">
+<mat-form-field class="input-class" appearance="fill">
     <mat-label>Meteo Station</mat-label>
     <mat-select (selectionChange)="applyFilter($event.value)">
       <mat-option *ngFor="let meteoStation of meteoStationsData" [value]="meteoStation">
         {{meteoStation}}
       </mat-option>
     </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+    <mat-label>Date Range</mat-label>
+    <mat-date-range-input [rangePicker]="dateRangePicker">
+      <input matStartDate
+        placeholder="Start date"
+        #dateRangeStart>
+      <input matEndDate
+        placeholder="End date"
+        #dateRangeEnd
+        (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matPrefix
+      [for]="dateRangePicker">
+    </mat-datepicker-toggle>
+    <mat-date-range-picker #dateRangePicker></mat-date-range-picker>
   </mat-form-field>
 
 <div class="mat-elevation-z8">
