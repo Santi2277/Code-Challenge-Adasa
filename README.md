@@ -264,3 +264,6 @@ Not developed.
 #### Service
 
 It uses HttpClient from Angular to do the GET call. Then it maps the response.
+
+It uses the BehaviorSubject to share a variable between components to avoid
+calling to the service once we have already done that call.

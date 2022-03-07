@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Meteo } from '../model/meteo.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { MeteoStation } from '../model/meteo-station.model';
 import { MeteoVariable } from '../model/meteo-variable.model';
 
@@ -14,10 +14,19 @@ export class CodeChallengeService {
     private meteoStationsBackUrl = 'http://localhost:8080/api/meteoStations';
     private meteoVariablesBackUrl = 'http://localhost:8080/api/meteoVariables';
 
+    public _meteos: BehaviorSubject<Meteo[]> = new BehaviorSubject<Meteo[]>(null);
+    public meteosObs = this._meteos.asObservable();
+    public meteosInitialized: boolean;
+
     constructor(private http: HttpClient) { }
 
-    getMeteos(): Observable<Meteo[]> {
-        return this.http.get<Meteo[]>(this.meteoUrl);
+    getMeteos() {
+        return this.http.get<Meteo[]>(this.meteoUrl).subscribe(
+          data => {
+            this._meteos.next(data);
+            this.meteosInitialized = true;
+          }
+        );
     }
     
     getMeteoStationsBack(): Observable<GetResponseStations> {

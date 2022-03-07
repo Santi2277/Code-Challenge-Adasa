@@ -17,11 +17,9 @@ import { CodeChallengeService } from 'src/app/services/code-challenge.service';
 export class ChartComponent {
   private chart: am4charts.XYChart;
   private jsonTempTs: any;
+  private jsonTempTs2: any;
 
   constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone, private codeChallengeService: CodeChallengeService) {}
-
-  
-
 
   // Run the function only in the browser
   browserOnly(f: () => void) {
@@ -37,82 +35,99 @@ export class ChartComponent {
     this.browserOnly(() => {
 
       // ---- code mine
-      // call the service to get meteos
-      this.codeChallengeService.getMeteos().subscribe(
-        data => {
+      // subscribe to the shared variable
+      this.codeChallengeService.meteosObs.subscribe((meteosFromService) => {
+
           // get meteos data
-          this.jsonTempTs = data;
-          // loop data to convert to data to pass to the chart
-          // we will get the temperature, date and cod_station only
-          for (const element of this.jsonTempTs) {
-            
-            delete element['hum'];
-            delete element['prec'];
-            delete element['wind'];
-            delete element['pres'];
+          this.jsonTempTs = meteosFromService;
+          this.jsonTempTs2 = JSON.parse(JSON.stringify(meteosFromService));
 
-            // value (temp)
-            // convert to number
-            element['temp'] = parseFloat(element['temp']);
-            Object.defineProperty(element, 'value',
-              Object.getOwnPropertyDescriptor(element, 'temp'));
-            delete element['temp'];
+          // call the function to do the chart logic
+          this.chartCodeFunction(this.jsonTempTs2);
 
-            // name (cod_station)
-            Object.defineProperty(element, 'name',
-              Object.getOwnPropertyDescriptor(element, 'cod_station'));
-            delete element['cod_station'];
-
-            // convert element['ts'] into a Date            
-            let cellDate = new Date(element['ts'])
-            element['ts'] = cellDate;
-
-            // date (ts)
-            Object.defineProperty(element, 'date',
-              Object.getOwnPropertyDescriptor(element, 'ts'));
-            delete element['ts'];
-
-          }
-
-          am4core.useTheme(am4themes_animated);
-
-          // create the chart
-          let chart = am4core.create("chartdiv", am4charts.XYChart);
-    
-          chart.paddingRight = 20;
-    
-          // assign data values to chart
-          chart.data = this.jsonTempTs;
-    
-          let date2Axis = chart.xAxes.push(new am4charts.DateAxis());
-          date2Axis.renderer.grid.template.location = 0;
-    
-          let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-          valueAxis.tooltip.disabled = true;
-          valueAxis.renderer.minWidth = 35;
-    
-          let series = chart.series.push(new am4charts.LineSeries());
-          // assign values to axis
-          series.dataFields.dateX = "date";
-          series.dataFields.valueY = "value";
-          series.tooltipText = "{valueY.value}";
-    
-          chart.cursor = new am4charts.XYCursor();
-    
-          let scrollbarX = new am4charts.XYChartScrollbar();
-          scrollbarX.series.push(series);
-          chart.scrollbarX = scrollbarX;
-    
-          this.chart = chart;
-
-        }
-      );
-
-      
+      })
 
 
+      // call if not initialized
+      if(this.codeChallengeService.meteosInitialized == undefined){
+        this.codeChallengeService.getMeteos();
+      } else {
+        // get meteos data
+        this.jsonTempTs = this.codeChallengeService._meteos.getValue();
+        this.jsonTempTs2 = JSON.parse(JSON.stringify(this.jsonTempTs));
+
+        // call the function to do the chart logic
+        this.chartCodeFunction(this.jsonTempTs2);
+      }
       
     });
+  }
+
+  chartCodeFunction (jsonTempTs2: any) {
+
+    // loop data to convert to data to pass to the chart
+    // we will get the temperature, date and cod_station only
+    for (const element of jsonTempTs2) {
+      
+      delete element['hum'];
+      delete element['prec'];
+      delete element['wind'];
+      delete element['pres'];
+
+      // value (temp)
+      // convert to number
+      element['temp'] = parseFloat(element['temp']);
+      Object.defineProperty(element, 'value',
+        Object.getOwnPropertyDescriptor(element, 'temp'));
+      delete element['temp'];
+
+      // name (cod_station)
+      Object.defineProperty(element, 'name',
+        Object.getOwnPropertyDescriptor(element, 'cod_station'));
+      delete element['cod_station'];
+
+      // convert element['ts'] into a Date            
+      let cellDate = new Date(element['ts'])
+      element['ts'] = cellDate;
+
+      // date (ts)
+      Object.defineProperty(element, 'date',
+        Object.getOwnPropertyDescriptor(element, 'ts'));
+      delete element['ts'];
+
+    }
+
+    am4core.useTheme(am4themes_animated);
+
+    // create the chart
+    let chart = am4core.create("chartdiv", am4charts.XYChart);
+
+    chart.paddingRight = 20;
+
+    // assign data values to chart
+    chart.data = jsonTempTs2;
+
+    let date2Axis = chart.xAxes.push(new am4charts.DateAxis());
+    date2Axis.renderer.grid.template.location = 0;
+
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.tooltip.disabled = true;
+    valueAxis.renderer.minWidth = 35;
+
+    let series = chart.series.push(new am4charts.LineSeries());
+    // assign values to axis
+    series.dataFields.dateX = "date";
+    series.dataFields.valueY = "value";
+    series.tooltipText = "{valueY.value}";
+
+    chart.cursor = new am4charts.XYCursor();
+
+    let scrollbarX = new am4charts.XYChartScrollbar();
+    scrollbarX.series.push(series);
+    chart.scrollbarX = scrollbarX;
+
+    this.chart = chart;
+
   }
 
   ngOnDestroy() {

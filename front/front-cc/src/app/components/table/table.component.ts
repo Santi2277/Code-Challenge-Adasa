@@ -32,13 +32,20 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // get meteo data from REST service
-    this.codeChallengeService.getMeteos().subscribe(
-      data => {
-        this.meteosFromService = data;
-        this.dataSource.data = this.meteosFromService;
-      }
-    );
+    // subscribe to the shared variable
+    this.codeChallengeService.meteosObs.subscribe((meteosFromService) => {
+      this.meteosFromService = meteosFromService;
+      console.log(this.meteosFromService);
+      this.dataSource.data = this.meteosFromService;
+    })
+
+    // call if not initialized
+    if(this.codeChallengeService.meteosInitialized == undefined){
+      this.codeChallengeService.getMeteos();
+    }else{
+      this.meteosFromService = this.codeChallengeService._meteos.getValue();
+      this.dataSource.data = this.meteosFromService;
+    }
 
     // get variables data from backend
     this.codeChallengeService.getMeteoVariablesBack().subscribe(
